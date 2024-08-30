@@ -1,0 +1,37 @@
+#server:
+#  ssl:
+#    key-store: classpath:jwtkeystore.jks
+#    key-store-password: mypassword
+#    key-alias: jwtsecretkey
+
+spring:
+  application:
+    name: redditClone
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-reddit-clone
+    username: root
+    password: ""
+    initialize: true
+  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 25
+    username: 518d3de2784241
+    password: 904de48256c735
+    protocol: smtp
+
+app:
+  api:
+    prefix: /api/v1
+  keystore:
+    path: /jwtkeystore.jks
+    password: mypassword
+    alias: jwtsecretkey
+
