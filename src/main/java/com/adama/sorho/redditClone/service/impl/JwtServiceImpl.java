@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class JwtServiceImpl implements JwtService {
 	private final PrivateKey jwtSigningKey;
+	private final PublicKey jwtVerificationKey;
 
 	@Override
 	public String extractUsername(String token) {
@@ -51,6 +53,15 @@ public class JwtServiceImpl implements JwtService {
 		final String username = extractUsername(token);
 
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
+
+	@Override
+	public Boolean validateToken(String token) {
+		Jwts.parserBuilder().setSigningKey(jwtVerificationKey)
+				.build()
+				.parseClaimsJws(token);
+
+		return true;
 	}
 
 	private boolean isTokenExpired(String token) {

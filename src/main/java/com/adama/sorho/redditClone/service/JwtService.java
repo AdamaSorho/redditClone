@@ -11,6 +11,10 @@ public interface JwtService {
 	String extractUsername(String token);
 	Date extractExpiration(String token);
 	<T> T extractClaim(String token, Function<Claims, T> claimsResolver);
+	@Deprecated
 	Boolean validateToken(String token, UserDetails userDetails);
+
+	Boolean validateToken(String token);
+
 	String generateToken(User user);
 }
