@@ -19,7 +19,7 @@ public class SubReddit {
 	@Id
 	@GeneratedValue
 	private Long id;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String name;
 	@Column(nullable = false)
 	private String description;
@@ -27,6 +27,6 @@ public class SubReddit {
 	private List<Post> posts;
 	@CreationTimestamp
 	private Instant createdOn;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User user;
 }

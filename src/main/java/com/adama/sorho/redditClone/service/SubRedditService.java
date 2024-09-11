@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 public interface SubRedditService {
 	SubRedditDto create(SubRedditDto subRedditDto);
 	Page<SubRedditDto> findAll(Pageable pageable);
+
+	SubRedditDto find(Long id);
 }

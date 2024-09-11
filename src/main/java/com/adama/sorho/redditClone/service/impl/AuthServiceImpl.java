@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +72,16 @@ public class AuthServiceImpl implements AuthService {
 
 		return new LoginResponse(jwtService.generateToken(refreshToken.getUser()), refreshToken.getToken(),
 				AppUtils.ACCESS_TOKEN_EXPIRE_IN);
+	}
+
+	@Override
+	public User currentUser() {
+		org.springframework.security.core.userdetails.User userDetails =
+				(org.springframework.security.core.userdetails.User) SecurityContextHolder
+						.getContext().getAuthentication().getPrincipal();
+
+		return this.userRepository.findByUsername(userDetails.getUsername())
+				.orElseThrow(() -> new SpringRedditException(AppUtils.notFindException("user")));
 	}
 
 	private void fetchUserAndEnable(VerificationToken verificationToken) {

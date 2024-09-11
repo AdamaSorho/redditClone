@@ -24,10 +24,10 @@ public class Post {
 	@Lob
 	private String description;
 	private Integer voteCount;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User user;
 	@CreationTimestamp
 	private Instant createdOn;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private SubReddit subReddit;
 }

@@ -24,4 +24,8 @@ public class AppUtils {
 	public static String userNotFound(String username) {
 		return "User not found with username: " + username;
 	}
+
+	public static String notFindException(String resource) {
+		return resource + " not found";
+	}
 }

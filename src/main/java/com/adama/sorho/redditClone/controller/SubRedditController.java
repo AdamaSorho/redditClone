@@ -25,4 +25,9 @@ public class SubRedditController {
 	public PagedModel<SubRedditDto> findAll(@RequestParam int page, @RequestParam int size) {
 		return new PagedModel<>(subRedditService.findAll(PageRequest.of(page, size)));
 	}
+
+	@GetMapping("/{id}")
+	public SubRedditDto find(@PathVariable Long id) {
+		return subRedditService.find(id);
+	}
 }
