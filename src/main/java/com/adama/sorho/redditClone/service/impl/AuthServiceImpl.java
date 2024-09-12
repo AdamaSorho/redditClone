@@ -75,13 +75,13 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public User currentUser() {
+	public User getCurrentUser() {
 		org.springframework.security.core.userdetails.User userDetails =
 				(org.springframework.security.core.userdetails.User) SecurityContextHolder
 						.getContext().getAuthentication().getPrincipal();
 
 		return this.userRepository.findByUsername(userDetails.getUsername())
-				.orElseThrow(() -> new SpringRedditException(AppUtils.notFindException("user")));
+				.orElseThrow(() -> new SpringRedditException(AppUtils.notFindException("user", userDetails.getUsername())));
 	}
 
 	private void fetchUserAndEnable(VerificationToken verificationToken) {

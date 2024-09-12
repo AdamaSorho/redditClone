@@ -13,7 +13,6 @@ import com.adama.sorho.redditClone.service.PostService;
 import com.adama.sorho.redditClone.util.AppUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostDto find(Long id) {
 		Post post = this.postRepository.findById(id).orElseThrow(
-				() -> new SpringRedditException(AppUtils.notFindException("Post")));
+				() -> new SpringRedditException(AppUtils.notFindException("Post", id.toString())));
 
 		return this.postMapper.mapToDto(post);
 	}
@@ -53,9 +52,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public PostDto create(PostDto postDto) {
-		User currentUser = this.authService.currentUser();
+		User currentUser = this.authService.getCurrentUser();
 		SubReddit subReddit = this.subRedditRepository.findByName(postDto.getSubRedditName())
-				.orElseThrow(() -> new SpringRedditException(AppUtils.notFindException("SubReddit")));
+				.orElseThrow(() -> new SpringRedditException(AppUtils.notFindException("SubReddit", postDto.getSubRedditName())));
 		Post post = this.postMapper.map(postDto, subReddit, currentUser);
 		post = this.postRepository.save(post);
 

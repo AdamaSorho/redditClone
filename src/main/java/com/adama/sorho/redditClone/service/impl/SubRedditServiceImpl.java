@@ -24,7 +24,7 @@ public class SubRedditServiceImpl implements SubRedditService {
 		SubReddit subReddit = subRedditRepository.save(SubReddit.builder()
 				.name(subRedditDto.getName())
 				.description(subRedditDto.getDescription())
-				.user(this.authService.currentUser())
+				.user(this.authService.getCurrentUser())
 				.build());
 
 		subRedditDto.setId(subReddit.getId());
@@ -41,7 +41,7 @@ public class SubRedditServiceImpl implements SubRedditService {
 	@Override
 	public SubRedditDto find(Long id) {
 		SubReddit subReddit =  subRedditRepository.findById(id).orElseThrow(() -> new SpringRedditException(
-				AppUtils.notFindException("Subreddit")
+				AppUtils.notFindException("Subreddit", id.toString())
 		));
 
 		return SubRedditAdapter.getSubRedditDtoFromSubReddit(subReddit);

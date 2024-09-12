@@ -12,5 +12,5 @@ public interface AuthService {
 
 	LoginResponse login(LoginRequest loginRequest);
 
-	User currentUser();
+	User getCurrentUser();
 }

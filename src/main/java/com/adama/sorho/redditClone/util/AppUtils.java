@@ -25,7 +25,15 @@ public class AppUtils {
 		return "User not found with username: " + username;
 	}
 
-	public static String notFindException(String resource) {
-		return resource + " not found";
+	public static String notFindException(String resource, String id) {
+		return resource + " not found. Id= " + id;
+	}
+
+	public static String newCommentBody(String username, String postUrl) {
+		return username + " posted a comment on your post. " + postUrl;
+	}
+
+	public static String newCommentSubject(String username) {
+		return username + " commented on your post";
 	}
 }
